@@ -1,0 +1,432 @@
+<html>
+
+<head>
+  <script type="text/javascript" async="" src="validate.js"></script>
+  <style>
+    body {
+  		font-family: "Arial";
+  	}
+  	#form {
+  		display: grid;
+  		grid-template-columns: repeat(3, 1fr);
+  		gap: 16px;
+  	}
+  	pre {
+  		background:linear-gradient(180deg,#ccc 0,#ccc 1.2em,#F5F5F5 0);
+  		tab-size: 2;
+  		font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  		font-size: 14px;
+  		color: #333;
+  		margin-top: 20px;
+  	}
+  	label {
+  		display: block;
+  		margin-bottom: 4px;
+  		font-size: 14px;
+  	}
+  	span {
+  		display: block;
+  		font-size: 14px;
+  		color: red;
+  		margin-top: 4px;
+  	}
+  	input, button {
+  		padding: 8px 12px;
+  		border: solid 1px #bcbcbc;
+  		border-radius: 4px;
+  		font-size: 16px;
+  		color: #333;
+  	}
+  	button {
+  		font-size: 14px;
+  	}
+  	highlight {
+  		display: block;
+	    background: #ffffd7;
+	    color: #2f4c83;
+  	}
+  	.tab {
+  		margin-top: 60px;
+  	}
+  	.hidden {
+  		display: none;
+  	}
+  </style>
+  <script>
+    ////// Tab handler
+
+  function openTab(tab) {
+    var elms = document.getElementsByClassName("intro");
+    for(var elm = 0; elm < elms.length; elm++) {
+    	elms[elm].classList.add("hidden");
+    }
+    switch (tab) {
+      case 1:
+        document.getElementsByClassName("tab_1")[0].classList.remove("hidden");
+        break;
+      case 2:
+        document.getElementsByClassName("tab_2")[0].classList.remove("hidden");
+        break;
+      case 3:
+        document.getElementsByClassName("tab_3")[0].classList.remove("hidden");
+        break;
+      case 4:
+        document.getElementsByClassName("tab_4")[0].classList.remove("hidden");
+        break;
+      default:
+        document.getElementsByClassName("tab_1")[0].classList.remove("hidden");
+        break;
+
+    }
+  }
+
+  ////// End Tab handler
+  </script>
+</head>
+
+<body>
+  <div id="form">
+    <div>
+      <label for="phone">Name * (min: 5, max: 15)</label>
+      <input type="text" id="name" placeholder="name" />
+      <span id="name_error"></span>
+    </div>
+    <div>
+      <label for="phone">Phone *</label>
+      <input type="text" id="phone" placeholder="phone" />
+      <span id="phone_error"></span>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="text" id="email" placeholder="email" />
+      <span id="email_error"></span>
+    </div>
+    <div>
+      <label for="password">Password (min: 8, hoa, thường, số, ký tự đb)</label>
+      <input type="text" id="password" placeholder="password" />
+      <span id="password_error"></span>
+    </div>
+    <div>
+      <label for="cccd">CMT/CCCD/HC *</label>
+      <input type="text" id="cccd" placeholder="cmt/cccd/hc" />
+      <span id="cccd_error"></span>
+    </div>
+    <div>
+      <label for="amount">Amount (min: 100, max: 200)</label>
+      <input type="text" id="amount" placeholder="amount" />
+      <span id="amount_error"></span>
+    </div>
+    <div>
+      <label for="tuoi">Age (min: 16 ngày, max: 60 tuổi)</label>
+      <input type="text" id="tuoi" placeholder="dd/MM/YYYY" />
+      <span id="tuoi_error"></span>
+    </div>
+  </div>
+  <div class="tab">
+    <button onclick="openTab(1)">Sử dụng</button>
+    <button onclick="openTab(2)">Kiểu dữ liệu</button>
+    <button onclick="openTab(3)">Quy tắc</button>
+    <button onclick="openTab(4)">Các hàm gọi riêng</button>
+  </div>
+  <pre class="intro tab_1">
+  	Cách sử dụng
+
+    /////////// Cách 1 ///////////
+    fields = [
+      { field: "phone", value: "0987654321" },
+      { field: "password", value: "123" },
+      {
+        field: "custom-password",
+        value: "123",
+        config: {
+          type: "password",
+          rule: {
+            require: true,
+            min: { value: 8, message: "Mật khẩu quá ngắn" },
+            max: { value: 12, message: "Mật khẩu không nhiều hơn 12 ký tự" },
+          },
+        },
+      },
+    ];
+    // default field đã có sẽ tự map và có config mặc định
+    // phone, email, cccd_hc, password
+    validate.form(fields);
+
+    /////////// Cách 2 ///////////
+    fields_value = {name: "test", phone: "0987654321", email: "abc@abc.abc"};
+    config = {
+      name: {
+        label: "Họ và tên",
+        type: "string",
+        rule: {
+          require: { value: true, message: "Tên không được để trống" }
+          min: { value: 4, message: "Tên không được ít hơn 4 ký tự" }
+          min: { value: 20 }
+        }
+      },
+      phone: {
+        type: "phone",
+        rule: {
+          require: { value: true }
+        }
+      },
+      email: {
+        type: "email",
+        rule: {
+          min: { value: 8 }
+        }
+      }
+    }
+    validate(fields_value, config);
+    
+
+
+  	// Quy tắc validate
+  	<highlight>
+  	var validateRule = {
+  		// Tên trường
+  		name: {
+  			label: "Họ và tên", // Không bắt buộc
+  			type: "string", // Không bắt buộc
+  											// Gồm các kiểu "string" | "number" | "phone" | "email" | "url" | "date" | "password"
+  											// Mặc định là "string"
+  			rule: {
+  				require: { // Không bắt buộc
+  					value: true, // true | false
+  											 // Mặc định là false
+  					message: "Không được để trống" // Không bắt buộc, thay thế cho message mặc định
+  				},
+  			}
+  		},
+	    amount: {
+	      type: "number",
+	      rule: {
+	        min: {
+	          value: 100
+	        },
+	        max: {
+	        	value: 200
+	        }
+	      }
+	    },
+  	}
+  	</highlight>
+
+  	// Form value
+  	<highlight>
+  	var value = {name: "Nguyen Van A", amount: 20};
+  	</highlight>
+
+  	// Gọi hàm validate
+  	<highlight>
+  	var validateForm = validate(value, config);
+  	</highlight>
+  </pre>
+  <pre class="intro tab_2 hidden">
+  	- Các kiểu dữ liệu:
+
+  	email: validate theo email
+  					+ default regex: REGEX.email
+  					+ default message: "%{label} không đúng định dạng" // label của trường
+
+  	phone: validate theo số điện thoại (theo nhà mạng)
+  					+ default regex: REGEX.phone
+  					+ default message: "%{label} không đúng định dạng" // label của trường
+
+  	date: validate ngày tháng năm
+  					+ default regex: REGEX.date // format : dd-MM-YYYY | dd.MM.YYYY | dd/MM/YYYY
+  					+ default message: "%{label} không đúng định dạng" // label của trường
+
+  	url: validate theo url
+  					+ default regex: REGEX.url // format : (http(s)://)(www.)myvbi.vn/
+  					+ default message: "%{label} không đúng định dạng" // label của trường
+
+  	age: validate theo tuổi. Giá trị truyền yêu cầu :
+  					+ min: số tuổi nhỏ nhất cho phép
+  					+ max: số tuổi lớn nhất cho phép
+  				 	{ 
+  				 		value: 16, // Giá trị tuổi
+  				 		type: "d", // Tính theo đơn vị:  d: ngày / m: tháng / y: năm	 -default: y
+  				 		toDate: "", // Mốc ngày để tính tuổi (vd: ngày hiệu lực, ngày hiện tại) -default: ngày hiện tại
+  				 		message: "Người được bảo hiểm phải trên 16 ngày tuổi" // Thông báo lỗi -default: lấy theo message min, max của number
+  				 	},
+
+  	string: validate theo chuỗi
+
+  	number: validate theo số
+  </pre>
+  <pre class="intro tab_3 hidden">
+  	- Các rule:
+
+  	require: Bắt buộc nhập hay không
+  					+ default message: "Không được để trống"
+
+  	min: quy định giá trị nhỏ nhất với number, hay ngắn nhất với string
+  					+ default message (string): "%{label} phải nhiều hơn %{num} ký tự" 
+  								// label của trường, num là giá trị truyền vào (min)
+  					+ default message (number): "%{label} phải lớn hơn %{num}" 
+  								// label của trường, num là giá trị truyền vào (min)
+
+  	max: quy định giá trị lớn nhất với number, hay dài nhất với string
+  					+ default message (string): "%{label} phải ít hơn %{num} ký tự" 
+  								// label của trường, num là giá trị truyền vào (max)
+  					+ default message (number): "%{label} phải nhỏ hơn %{num}" 
+  								// label của trường, num là giá trị truyền vào (max)
+
+  	length: độ dài cố định với cả string và number,
+
+  	format: custom validate theo regex, truyền vào value là 1 regex
+  					+ default message: "%{label} không đúng định dạng" 
+  								// label của trường
+
+  </pre>
+  <pre class="intro tab_4 hidden">
+  	Các hàm gọi riêng
+
+  	<highlight>
+  	- Lấy regex
+  	</highlight>
+  		REGEX.email  					// regex cho email
+  		REGEX.phone  					// regex cho phone ( theo nhà mạng )
+  		REGEX.url 						// regex cho url
+  		REGEX.date 						// regex cho date ( format: dd-MM-YYYY | dd.MM.YYYY | dd/MM/YYYY )
+  		REGEX.password 				// regex cho password ( phải có chữ thường, chữ hoa, số và ký tự đặc biệt )
+  		REGEX.ho_chieu 				// regex cho số Hộ chiếu. (1 chữ cái đầu và 7 số)
+  		REGEX.cccd 						// regex cho số CCCD. (3 số đầu theo mã tỉnh thành)
+  		REGEX.cmt 						// regex cho số CMT. (C2-3 số đầu validate theo mã tỉnh thành)
+  		REGEX.province_code 	// regex cho mã tỉnh thành
+
+  	<highlight>
+  	- Tính số tuổi
+  	</highlight>
+  		validate.getAgeByDob(inputDate, compareDate, type);
+
+  			+ inputDate: ngày tháng năm sinh
+  			+ compareDate: ngày hiệu lưc, ngày hiện tại, ... mặc định là ngày hiện tại
+  			+ type: "d" | "m" | "y" lấy số tuổi theo ngày | tháng | năm. Mặc định: "y"
+
+  		vd: Tính số ngày tuổi của người có ngày sinh 20/12/2022 so với thời điểm 29/12/2022
+  					validate.getAgeByDob("20/12/2022", "29/12/2022", "d");
+  					// Kết quả: 9
+
+  				Tính số năm tuổi của người có ngày sinh 28/09/1987 so với ngày hiện tại
+  					validate.getAgeByDob("28/09/1987");
+  					// Kết quả: 35
+
+  </pre>
+  <script>
+  var config = {
+    name: {
+      rule: {
+        require: { value: true, message: "Trường không được để trống" },
+        min: { value: 5, },
+        max: { value: 15, message: "Tên quá dài (15)" },
+      },
+      label: "Tên",
+    },
+    email: {
+      type: "email",
+      rule: {
+        format: { message: "Email không đúng định dạng" }
+      }
+    },
+    phone: {
+      rule: { require: true, },
+      type: "phone"
+    },
+    password: {
+      type: "password",
+      label: "Mật khẩu",
+      rule: {
+        min: { value: 8, message: "Mật khẩu tối thiểu 8 ký tự" }
+      }
+    },
+    amount: {
+      type: "number",
+      label: "Amount",
+      rule: {
+        min: { value: 100 },
+        max: { value: 200 }
+      }
+    },
+    cccd: {
+      type: "cccd_hc",
+      label: "Số CMT/CCCD/HC",
+    },
+    tuoi: {
+      type: "age",
+      label: "Tuổi",
+      rule: {
+        min: { value: 16, type: "d", toDate: "", message: "Người được bảo hiểm phải trên 16 ngày tuổi" },
+        max: { value: 60, type: "y", toDate: "", message: "Người được bảo hiểm không quá 60 tuổi" }
+      }
+    }
+  };
+
+  var phone = document.getElementById("phone");
+  var email = document.getElementById("email");
+  var username = document.getElementById("name");
+  var password = document.getElementById("password");
+  var amount = document.getElementById("amount");
+  var cccd = document.getElementById("cccd");
+  var tuoi = document.getElementById("tuoi");
+
+  phone.addEventListener("keyup", function(e) {
+    var validateForm = validate({ phone: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("phone_error").innerHTML = validateForm.fields.phone.join(", ");
+    else document.getElementById("phone_error").innerHTML = "";
+  });
+
+  email.addEventListener("keyup", function(e) {
+    var validateForm = validate({ email: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("email_error").innerHTML = validateForm.fields.email.join(", ");
+    else document.getElementById("email_error").innerHTML = "";
+  });
+
+  username.addEventListener("keyup", function(e) {
+    var validateForm = validate({ name: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("name_error").innerHTML = validateForm.fields.name.join(", ");
+    else document.getElementById("name_error").innerHTML = "";
+  });
+
+  password.addEventListener("keyup", function(e) {
+    var validateForm = validate({ password: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("password_error").innerHTML = validateForm.fields.password.join(", ");
+    else document.getElementById("password_error").innerHTML = "";
+  });
+
+  amount.addEventListener("keyup", function(e) {
+    var validateForm = validate({ amount: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("amount_error").innerHTML = validateForm.fields.amount.join(", ");
+    else document.getElementById("amount_error").innerHTML = "";
+  });
+
+  cccd.addEventListener("keyup", function(e) {
+    var validateForm = validate({ cccd: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("cccd_error").innerHTML = validateForm.fields.cccd.join(", ");
+    else document.getElementById("cccd_error").innerHTML = "";
+  });
+
+  tuoi.addEventListener("keyup", function(e) {
+    var validateForm = validate({ tuoi: e.target.value }, config);
+
+    if (validateForm.errors)
+      document.getElementById("tuoi_error").innerHTML = validateForm.fields.tuoi.join(", ");
+    else document.getElementById("tuoi_error").innerHTML = "";
+  });
+  </script>
+</body>
+
+</html>

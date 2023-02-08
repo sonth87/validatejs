@@ -1,0 +1,19 @@
+Version history
+
+0.0.1
+Cơ chế validate cho các loại dữ liệu
+type : "string" | "number" | "phone" | "email" | "url" | "date" | "password"
+định nghĩa config và truyền value của các trường để validate
+vd: validate(form_value, fields_config);
+
+
+0.0.2
+Thêm validate tuổi
+type : "string" | "number" | "phone" | "email" | "url" | "date" | "password" | "age"
+và thêm hàm tính số tuổi
+
+
+0.0.3
+Thêm default config. và cách gọi hàm khác
+vd: var fields = [{ field: "phone", value: "0987654321" }, { field: "password", value: "123" },]
+    validate.form(fields);
