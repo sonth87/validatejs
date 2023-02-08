@@ -1,7 +1,8 @@
-Cách sử dụng
+# Cách sử dụng
 
-///////////////////////////////// Cách 1 /////////////////////////////////
+## Cách 1
 
+```
 fields = [
   { field: "phone", value: "0987654321" },
   { field: "email", value: "abc" },
@@ -21,11 +22,13 @@ fields = [
 // default field đã có sẽ tự map và có config mặc định
 // phone, email, cccd_hc, password
 validate.form(fields);
+```
 
 
 
-///////////////////////////////// Cách 2 /////////////////////////////////
+## Cách 2
 
+```
 fields_value = {name: "test", phone: "0987654321", email: "abc@abc.abc"};
 config = {
   name: {
@@ -51,12 +54,14 @@ config = {
   }
 }
 validate(fields_value, config);
+```
 
 
-///////////////////////////////// Cách 3 /////////////////////////////////
+## Cách 3
 
-Regex
+### Regex
 
+```
 Sử dụng trực tiếp Regex bằng cách gọi 
 REGEX.email           // regex cho email
 REGEX.phone           // regex cho phone ( theo nhà mạng )
@@ -67,11 +72,13 @@ REGEX.ho_chieu        // regex cho số Hộ chiếu. (1 chữ cái đầu và 7
 REGEX.cccd            // regex cho số CCCD. (3 số đầu theo mã tỉnh thành)
 REGEX.cmt             // regex cho số CMT. (C2-3 số đầu validate theo mã tỉnh thành)
 REGEX.province_code   // regex cho mã tỉnh thành
+```
 
 
 
-Function
+### Function
 
+```
 // Tính tuổi theo ngày sinh, ngày lựa chọn (default today), kiểu (d: ngày, m: tháng, y: năm - default)
 validate.getAgeByDob(inputDate, compareDate, type);
 
@@ -86,3 +93,4 @@ validate.getAgeByDob(inputDate, compareDate, type);
       Tính số năm tuổi của người có ngày sinh 28/09/1987 so với ngày hiện tại
         validate.getAgeByDob("28/09/1987");
         // Kết quả: 35
+```
