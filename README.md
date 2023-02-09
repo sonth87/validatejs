@@ -25,12 +25,10 @@ fields = [
 // phone, email, cccd_hc, password
 validate.form(fields);
 ```
+
 [📚 xem mô tả chi tiết](#configuration)
 
-[Response có dạng như sau](#response) 
-
-
-
+[Response có dạng như sau](#response)
 
 ## Cách 2
 
@@ -61,17 +59,17 @@ config = {
 }
 validate(fields_value, config);
 ```
+
 [📚 xem mô tả chi tiết](#configuration)
 
-[Response có dạng như sau](#response) 
-
+[Response có dạng như sau](#response)
 
 ## Cách 3
 
 ### Regex
 
 ```
-Sử dụng trực tiếp Regex bằng cách gọi 
+Sử dụng trực tiếp Regex bằng cách gọi
 REGEX.email           // regex cho email
 REGEX.phone           // regex cho phone ( theo nhà mạng )
 REGEX.url             // regex cho url
@@ -83,7 +81,11 @@ REGEX.cmt             // regex cho số CMT. (C2-3 số đầu validate theo mã
 REGEX.province_code   // regex cho mã tỉnh thành
 ```
 
-
+vd:<br />
+```
+var reg = new RegExp(REGEX.email);
+reg.test("my.email@email.vn");
+```
 
 ### Function
 
@@ -104,13 +106,12 @@ validate.getAgeByDob(inputDate, compareDate, type);
         // Kết quả: 35
 ```
 
-
-
 ### ⚙️ Configuration
 
 Để gọi hàm validate có 2 cách gọi
 
 [Cách 1 (như trên)](#cách-1)
+
 ```
 validate.form(fields);
 
@@ -123,6 +124,7 @@ validate.form(fields);
 ```
 
 [Cách 2 (như trên)](#cách-2)
+
 ```
 validate(fields_value, config);
 
@@ -131,7 +133,6 @@ validate(fields_value, config);
 // vd: { phone: phone_input_value, email: email_input_value, address: address_input_value }
 // config: Cấu hình các quy tắc validate cho các trường
 ```
-
 
 Cấu trúc của config rule sẽ có dạng
 
@@ -169,7 +170,7 @@ type: Các kiểu dữ liệu
   age: validate theo tuổi. Giá trị truyền yêu cầu :
     + min: số tuổi nhỏ nhất cho phép
     + max: số tuổi lớn nhất cho phép
-    { 
+    {
       value: 16, // Giá trị tuổi
       type: "d", // Tính theo đơn vị:  d: ngày / m: tháng / y: năm	 -default: y
       toDate: "", // Mốc ngày để tính tuổi (vd: ngày hiệu lực, ngày hiện tại) -default: ngày hiện tại
@@ -186,26 +187,26 @@ rule: Quy tắc validate
     + default message: "Không được để trống"
 
   min: quy định giá trị nhỏ nhất với number, hay ngắn nhất với string
-    + default message (string): "%{label} phải nhiều hơn %{num} ký tự" 
+    + default message (string): "%{label} phải nhiều hơn %{num} ký tự"
           // label của trường, num là giá trị truyền vào (min)
-    + default message (number): "%{label} phải lớn hơn %{num}" 
+    + default message (number): "%{label} phải lớn hơn %{num}"
           // label của trường, num là giá trị truyền vào (min)
 
   max: quy định giá trị lớn nhất với number, hay dài nhất với string
-    + default message (string): "%{label} phải ít hơn %{num} ký tự" 
+    + default message (string): "%{label} phải ít hơn %{num} ký tự"
           // label của trường, num là giá trị truyền vào (max)
-    + default message (number): "%{label} phải nhỏ hơn %{num}" 
+    + default message (number): "%{label} phải nhỏ hơn %{num}"
           // label của trường, num là giá trị truyền vào (max)
 
   length: độ dài cố định với cả string và number,
 
   format: custom validate theo regex, truyền vào value là 1 regex
-    + default message: "%{label} không đúng định dạng" 
+    + default message: "%{label} không đúng định dạng"
           // label của trường
 
 ```
-✨✨ Lưu ý, các trường không có config sẽ bỏ quả khi validate
 
+✨✨ Lưu ý, các trường không có config sẽ bỏ quả khi validate
 
 ### Response
 
@@ -220,9 +221,9 @@ rule: Quy tắc validate
 }
 ```
 
-✨✨ Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường 
+✨✨ Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường
 <br />
-vd: 
+vd:
 
 ```
 config = {
@@ -235,7 +236,7 @@ config = {
   },
 };
 
-// error Message 
+// error Message
 Có label: "Họ và tên không được để trống"
 Không có label: "không được để trống"
 ```
@@ -249,11 +250,11 @@ config = {
   name: {
     type: "string",
     rule: {
-      require: { 
-        value: true, 
-        message: "Thiếu tên rồi, alo alo" 
-      }  --> custom message 
-      min: { value: 1, message: "Tên gì mà ngắn thế" }  --> custom message 
+      require: {
+        value: true,
+        message: "Thiếu tên rồi, alo alo"
+      }  --> custom message
+      min: { value: 1, message: "Tên gì mà ngắn thế" }  --> custom message
       max: { value: 30 } --> default message: phải ít hơn %num% ký tự
     }
   },
