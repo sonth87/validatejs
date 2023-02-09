@@ -27,6 +27,9 @@ validate.form(fields);
 ```
 [xem mô tả chi tiết](#configuration)
 
+[Response có dạng như sau](#response) 
+
+
 
 
 ## Cách 2
@@ -59,6 +62,8 @@ config = {
 validate(fields_value, config);
 ```
 [xem mô tả chi tiết](#configuration)
+
+[Response có dạng như sau](#response) 
 
 
 ## Cách 3
@@ -198,5 +203,55 @@ rule: Quy tắc validate
     + default message: "%{label} không đúng định dạng" 
           // label của trường
 
-// Lưu ý, các trường không có config sẽ bỏ quả khi validate
+```
+Lưu ý, các trường không có config sẽ bỏ quả khi validate
+
+
+### Response
+```
+
+{
+  errors: true,
+  fields: {
+     name: ["[field_label] không được để trống"], // field_label: là label của trường đó trong config
+     phone: ["Số điện thoại không đúng định dạng"],
+     cccd_hc: ["Số CMT/CCCD/HC không đúng định dạng"]
+  }
+}
+
+```
+Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường <br />
+vd: 
+```
+config = {
+  name: {
+    label: "Họ và tên",
+    type: "string",
+    rule: {
+      require: { value: true }
+    }
+  },
+};
+
+// error Message 
+Có label: "Họ và tên không được để trống"
+Không có label: "không được để trống"
+```
+Có thể custom thông báo lỗi cho từng rule
+<br />
+vd:
+```
+config = {
+  name: {
+    type: "string",
+    rule: {
+      require: { 
+        value: true, 
+        message: "Thiếu tên rồi, alo alo" 
+      }  --> custom message 
+      min: { value: 1, message: "Tên gì mà ngắn thế" }  --> custom message 
+      max: { value: 30 } --> default message: phải ít hơn %num% ký tự
+    }
+  },
+};
 ```
