@@ -25,7 +25,7 @@ fields = [
 // phone, email, cccd_hc, password
 validate.form(fields);
 ```
-[xem mô tả chi tiết](#configuration)
+[📚 xem mô tả chi tiết](#configuration)
 
 [Response có dạng như sau](#response) 
 
@@ -61,7 +61,7 @@ config = {
 }
 validate(fields_value, config);
 ```
-[xem mô tả chi tiết](#configuration)
+[📚 xem mô tả chi tiết](#configuration)
 
 [Response có dạng như sau](#response) 
 
@@ -106,7 +106,7 @@ validate.getAgeByDob(inputDate, compareDate, type);
 
 
 
-### Configuration
+### ⚙️ Configuration
 
 Để gọi hàm validate có 2 cách gọi
 
@@ -204,12 +204,12 @@ rule: Quy tắc validate
           // label của trường
 
 ```
-> Lưu ý, các trường không có config sẽ bỏ quả khi validate
+✨✨ Lưu ý, các trường không có config sẽ bỏ quả khi validate
 
 
 ### Response
-```
 
+```
 {
   errors: true,
   fields: {
@@ -218,11 +218,12 @@ rule: Quy tắc validate
      cccd_hc: ["Số CMT/CCCD/HC không đúng định dạng"]
   }
 }
-
 ```
-> Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường 
+
+✨✨ Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường 
 <br />
 vd: 
+
 ```
 config = {
   name: {
@@ -238,9 +239,11 @@ config = {
 Có label: "Họ và tên không được để trống"
 Không có label: "không được để trống"
 ```
-> Có thể custom thông báo lỗi cho từng rule
+
+✨✨ Có thể custom thông báo lỗi cho từng rule
 <br />
 vd:
+
 ```
 config = {
   name: {
