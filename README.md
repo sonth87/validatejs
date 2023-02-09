@@ -149,58 +149,58 @@ validate(fields_value, config);
       }
 
 type: Các kiểu dữ liệu
-    email: validate theo email
-  					+ default regex: REGEX.email
-  					+ default message: "%{label} không đúng định dạng" // label của trường
+  email: validate theo email
+    + default regex: REGEX.email
+    + default message: "%{label} không đúng định dạng" // label của trường
 
-  	phone: validate theo số điện thoại (theo nhà mạng)
-  					+ default regex: REGEX.phone
-  					+ default message: "%{label} không đúng định dạng" // label của trường
+  phone: validate theo số điện thoại (theo nhà mạng)
+    + default regex: REGEX.phone
+    + default message: "%{label} không đúng định dạng" // label của trường
 
-  	date: validate ngày tháng năm
-  					+ default regex: REGEX.date // format : dd-MM-YYYY | dd.MM.YYYY | dd/MM/YYYY
-  					+ default message: "%{label} không đúng định dạng" // label của trường
+  date: validate ngày tháng năm
+    + default regex: REGEX.date // format : dd-MM-YYYY | dd.MM.YYYY | dd/MM/YYYY
+    + default message: "%{label} không đúng định dạng" // label của trường
 
-  	url: validate theo url
-  					+ default regex: REGEX.url // format : (http(s)://)(www.)myvbi.vn/
-  					+ default message: "%{label} không đúng định dạng" // label của trường
+  url: validate theo url
+    + default regex: REGEX.url // format : (http(s)://)(www.)myvbi.vn/
+    + default message: "%{label} không đúng định dạng" // label của trường
 
-  	age: validate theo tuổi. Giá trị truyền yêu cầu :
-  					+ min: số tuổi nhỏ nhất cho phép
-  					+ max: số tuổi lớn nhất cho phép
-  				 	{ 
-  				 		value: 16, // Giá trị tuổi
-  				 		type: "d", // Tính theo đơn vị:  d: ngày / m: tháng / y: năm	 -default: y
-  				 		toDate: "", // Mốc ngày để tính tuổi (vd: ngày hiệu lực, ngày hiện tại) -default: ngày hiện tại
-  				 		message: "Người được bảo hiểm phải trên 16 ngày tuổi" // Thông báo lỗi -default: lấy theo message min, max của number
-  				 	},
+  age: validate theo tuổi. Giá trị truyền yêu cầu :
+    + min: số tuổi nhỏ nhất cho phép
+    + max: số tuổi lớn nhất cho phép
+    { 
+      value: 16, // Giá trị tuổi
+      type: "d", // Tính theo đơn vị:  d: ngày / m: tháng / y: năm	 -default: y
+      toDate: "", // Mốc ngày để tính tuổi (vd: ngày hiệu lực, ngày hiện tại) -default: ngày hiện tại
+      message: "Người được bảo hiểm phải trên 16 ngày tuổi" // Thông báo lỗi -default: lấy theo message min, max của number
+    },
 
-  	string: validate theo chuỗi
+  string: validate theo chuỗi
 
-  	number: validate theo số
+  number: validate theo số
 
 
 rule: Quy tắc validate
-    require: Bắt buộc nhập hay không
-  					+ default message: "Không được để trống"
+  require: Bắt buộc nhập hay không
+    + default message: "Không được để trống"
 
-  	min: quy định giá trị nhỏ nhất với number, hay ngắn nhất với string
-  					+ default message (string): "%{label} phải nhiều hơn %{num} ký tự" 
-  								// label của trường, num là giá trị truyền vào (min)
-  					+ default message (number): "%{label} phải lớn hơn %{num}" 
-  								// label của trường, num là giá trị truyền vào (min)
+  min: quy định giá trị nhỏ nhất với number, hay ngắn nhất với string
+    + default message (string): "%{label} phải nhiều hơn %{num} ký tự" 
+          // label của trường, num là giá trị truyền vào (min)
+    + default message (number): "%{label} phải lớn hơn %{num}" 
+          // label của trường, num là giá trị truyền vào (min)
 
-  	max: quy định giá trị lớn nhất với number, hay dài nhất với string
-  					+ default message (string): "%{label} phải ít hơn %{num} ký tự" 
-  								// label của trường, num là giá trị truyền vào (max)
-  					+ default message (number): "%{label} phải nhỏ hơn %{num}" 
-  								// label của trường, num là giá trị truyền vào (max)
+  max: quy định giá trị lớn nhất với number, hay dài nhất với string
+    + default message (string): "%{label} phải ít hơn %{num} ký tự" 
+          // label của trường, num là giá trị truyền vào (max)
+    + default message (number): "%{label} phải nhỏ hơn %{num}" 
+          // label của trường, num là giá trị truyền vào (max)
 
-  	length: độ dài cố định với cả string và number,
+  length: độ dài cố định với cả string và number,
 
-  	format: custom validate theo regex, truyền vào value là 1 regex
-  					+ default message: "%{label} không đúng định dạng" 
-  								// label của trường
+  format: custom validate theo regex, truyền vào value là 1 regex
+    + default message: "%{label} không đúng định dạng" 
+          // label của trường
 
 // Lưu ý, các trường không có config sẽ bỏ quả khi validate
 ```
