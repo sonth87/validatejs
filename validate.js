@@ -681,7 +681,7 @@ var REGEX = {
     var config = {};
     var form_field = {};
 
-    fields.map((item) => {
+    fields.forEach(function(item) {
       var field_name = item.field;
       var field_value = item.value;
       var field_config = item.config;

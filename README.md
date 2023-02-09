@@ -214,9 +214,10 @@ rule: Quy tắc validate
 {
   errors: true,
   fields: {
-     name: ["[field_label] không được để trống"], // field_label: là label của trường đó trong config
+     name: ["%field_label% không được để trống"], // field_label: là label của trường đó trong config
      phone: ["Số điện thoại không đúng định dạng"],
-     cccd_hc: ["Số CMT/CCCD/HC không đúng định dạng"]
+     cccd_hc: ["Số CMT/CCCD/HC không đúng định dạng"],
+     password: ["Mật khẩu không đúng định dạng", "Mật khẩu tối thiểu 6 ký tự"]
   }
 }
 ```
