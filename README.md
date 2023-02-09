@@ -204,7 +204,7 @@ rule: Quy tắc validate
           // label của trường
 
 ```
-Lưu ý, các trường không có config sẽ bỏ quả khi validate
+> Lưu ý, các trường không có config sẽ bỏ quả khi validate
 
 
 ### Response
@@ -220,7 +220,8 @@ Lưu ý, các trường không có config sẽ bỏ quả khi validate
 }
 
 ```
-Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường <br />
+> Lưu ý: Các thông báo mặc định sẽ lấy theo label của từng trường 
+<br />
 vd: 
 ```
 config = {
@@ -237,7 +238,7 @@ config = {
 Có label: "Họ và tên không được để trống"
 Không có label: "không được để trống"
 ```
-Có thể custom thông báo lỗi cho từng rule
+> Có thể custom thông báo lỗi cho từng rule
 <br />
 vd:
 ```
