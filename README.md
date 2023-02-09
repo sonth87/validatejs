@@ -125,28 +125,24 @@ validate(fields_value, config);
 // fields_value: Giá trị của các trường trong form
 // vd: { phone: phone_input_value, email: email_input_value, address: address_input_value }
 // config: Cấu hình các quy tắc validate cho các trường
-// vd: var config = {
-        phone: {
-          rule: {
-            require: { value: true, message: "Trường không được để trống" },
-            min: { value: 5, },
-            max: { value: 15, message: "Tên quá dài (15)" },
-          },
-          label: "Tên",
-        },
-        email: {
-          type: "email",
-          rule: {
-            format: { message: "Email không đúng định dạng" }
-          }
-        },
-        address: {
-          type: "string"
-          rule: {
-            require: { value: true }
-          }
-        }
-      }
+```
+
+
+Cấu trúc của config rule sẽ có dạng
+
+```
+config = {
+  name: {
+    label: "Họ và tên",
+    type: "string",
+    rule: {
+      require: { value: true, message: "Tên không được để trống" }
+      min: { value: 4, message: "Tên không được ít hơn 4 ký tự" }
+      min: { value: 20 }
+    }
+  },
+};
+
 
 type: Các kiểu dữ liệu
   email: validate theo email
@@ -203,21 +199,4 @@ rule: Quy tắc validate
           // label của trường
 
 // Lưu ý, các trường không có config sẽ bỏ quả khi validate
-```
-
-
-Cấu trúc của config rule sẽ có dạng
-
-```
-config = {
-  name: {
-    label: "Họ và tên",
-    type: "string",
-    rule: {
-      require: { value: true, message: "Tên không được để trống" }
-      min: { value: 4, message: "Tên không được ít hơn 4 ký tự" }
-      min: { value: 20 }
-    }
-  },
-};
 ```
